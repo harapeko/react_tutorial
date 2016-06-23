@@ -13,13 +13,19 @@
   <body>
     <div id="content"></div>
     <script type="text/babel">
+      // tutorial8.js
+      var data = [
+        {id: 1, author: "Pete Hunt", text: "This is one comment"},
+        {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
+      ];
+
       // tutorial1.js
       var CommentBox = React.createClass({
         render: function() {
           return (
             <div className="commentBox">
               <h1>Comments</h1>
-              <CommentList />
+              <CommentList data={this.props.data} />
               <commentForm />
             </div>
           );
@@ -30,12 +36,6 @@
       var CommentList = React.createClass({
 
         render: function() {
-          // tutorial8.js
-          var data = [
-            {id: 1, author: "Pete Hunt", text: "This is one comment"},
-            {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
-          ];
-
           return (
             <div className="commentList">
               <Comment author="Pete Hunt">This is one comment</Comment>
@@ -76,7 +76,7 @@
       });
 
       ReactDOM.render(
-        <CommentBox />,
+        <CommentBox data={data} />,
         document.getElementById('content')
       );
     </script>
