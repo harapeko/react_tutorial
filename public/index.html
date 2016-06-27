@@ -39,6 +39,12 @@
           }.bind(this));
         },
         handleCommentSubmit: function(comment) {
+          var currentComments = this.state.data;
+          // 雑にユニークぽいIDをいれてるだけー。実際の鯖なら堅牢なの使ってくれるよね(´・ω・`)
+          comment.id = Date.now();
+          var newComments = currentComments.concat([comment]);
+          this.setState( {data: newComments} )
+
           $.ajax({
             type: 'POST',
             url: this.props.url,
