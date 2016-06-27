@@ -22,7 +22,20 @@
       // tutorial1.js
       var CommentBox = React.createClass({
         getInitialState: function() {
-          return {data: []}
+          return { data: [] }
+        },
+        componentDidMount: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            done: function( data ) {
+              this.setState( {data: data} );
+            }.bind(this),
+            fail: function( xhr, status, err ) {
+              console.error( this.props.url, status, err.toString() );
+            }.bind(this)
+          });
         },
         render: function() {
           return (
