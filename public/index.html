@@ -82,9 +82,19 @@
         handleTextChange: function(ev) {
           this.setState( { text: ev.target.value } );
         },
+        handleSubmit: function(ev) {
+          ev.preventDefault();
+          var author = this.state.author.trim();
+          var text = this.state.text.trim();
+          if (!text || !author) {
+            return;
+          }
+          // TODO: サーバーに要求を送信
+          this.setState( {author: '', text: ''} );
+        },
         render: function() {
           return (
-            <form className="commentForm">
+            <form className="commentForm" onSubmit={this.handleSubmit}>
               <input
                 type="text"
                 placeholder="Your name"
