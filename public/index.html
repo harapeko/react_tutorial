@@ -14,10 +14,10 @@
     <div id="content"></div>
     <script type="text/babel">
       // tutorial8.js
-      var data = [
-        {id: 1, author: "Pete Hunt", text: "This is one comment"},
-        {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
-      ];
+      // var data = [
+      //   {id: 1, author: "Pete Hunt", text: "This is one comment"},
+      //   {id: 2, author: "Jordan Walke", text: "This is *another* comment"}
+      // ];
 
       // tutorial1.js
       var CommentBox = React.createClass({
@@ -26,16 +26,17 @@
         },
         loadCommentsFromServer: function() {
           $.ajax({
+            type: 'GET',
             url: this.props.url,
             dataType: 'json',
             cache: false,
-            done: function( data ) {
-              this.setState( {data: data} );
-            }.bind(this),
-            fail: function( xhr, status, err ) {
-              console.error( this.props.url, status, err.toString() );
-            }.bind(this)
-          });
+          })
+          .fail(function( xhr, status, err ) {
+            console.error( this.props.url, status, err.toString() );
+          }.bind(this))
+          .done(function( data ) {
+            this.setState( {data: data} );
+          }.bind(this));
         },
         componentDidMount: function() {
           this.loadCommentsFromServer();
