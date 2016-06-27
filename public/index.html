@@ -39,7 +39,18 @@
           }.bind(this));
         },
         handleCommentSubmit: function(comment) {
-          // TODO: フォーム送信されたらコメントリストをリフレッシュする
+          $.ajax({
+            type: 'POST',
+            url: this.props.url,
+            dataType: 'json',
+            data: comment,
+          })
+          .fail(function( xhr, status, err ) {
+            console.error( this.props.url, status, err.toString() );
+          }.bind(this))
+          .done(function ( data ) {
+            this.setState( {data: data} );
+          }.bind(this));
         },
         componentDidMount: function() {
           this.loadCommentsFromServer();
