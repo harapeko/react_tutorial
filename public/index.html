@@ -38,6 +38,9 @@
             this.setState( {data: data} );
           }.bind(this));
         },
+        handleCommentSubmit: function(comment) {
+          // TODO: フォーム送信されたらコメントリストをリフレッシュする
+        },
         componentDidMount: function() {
           this.loadCommentsFromServer();
           setInterval(this.loadCommentsFromServer, this.props.pollInterval);
@@ -47,7 +50,7 @@
             <div className="commentBox">
               <h1>Comments</h1>
               <CommentList data={this.state.data} />
-              <CommentForm />
+              <CommentForm onCommentSubmit={this.handleCommentSubmit} />
             </div>
           );
         }
